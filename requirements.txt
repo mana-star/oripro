@@ -72,7 +72,7 @@ termcolor==3.1.0
 tokenizers==0.22.1
 tomli==2.3.0
 tqdm==4.67.1
-transformers==4.57.0
+transformers==4.31.0
 typing-inspection==0.4.2
 typing_extensions==4.15.0
 unidic-lite==1.0.8
