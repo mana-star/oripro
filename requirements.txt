@@ -49,6 +49,8 @@ packaging==25.0
 pillow
 proto-plus==1.26.1
 protobuf>=5.26.1,<6.0
+psycopg2-binary==2.9.7
+psycopg2==2.9.11
 pyasn1==0.6.1
 pyasn1_modules==0.4.2
 pydantic==2.12.3
