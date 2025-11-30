@@ -1,0 +1,54 @@
+<head>
+    <meta charset="utf-8">
+    <title>新しい投稿 - {{ user.username }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='button.css') }}">
+    
+</head>
+<body>
+
+
+<h2>新しい投稿</h2>
+<form id="postForm"method="POST" enctype="multipart/form-data">
+<textarea name="text" rows="5" placeholder="ここに文章を入力してください"></textarea><br>
+<!-- 画像アップロード欄を追加   ChatGPTに聞いた-->
+<input type="file" name="image" accept="image/*"><br>
+<button type="submit">投稿する</button>
+</form>
+
+<!-- ChatGPTに聞いた -->
+<div id="status" style="margin-top:10px; color: blue;"></div>
+
+
+<button class="button-61" onclick="location.href='{{ url_for('post') }}'">新規投稿</button>
+<button class="button-61" onclick="location.href='{{ url_for('mypage') }}'">マイページ</button>
+<button class="button-61" onclick="location.href='{{ url_for('all_posts') }}'">みんなの<br>投稿を見る</button>
+
+
+
+<!-- ChatGPTに聞いた -->
+<script>
+document.getElementById("postForm").addEventListener("submit", async function(e) {
+    e.preventDefault(); // ページ遷移を防ぐ
+    const statusDiv = document.getElementById("status");
+    statusDiv.textContent = "投稿の反映には時間が掛かりますが、反映を待たず、続けて投稿したり、マイページ・みんなの投稿ページに移動可能です。";
+
+    const formData = new FormData(e.target);
+
+    try {
+        const response = await fetch("/post_async", {
+            method: "POST",
+            body: formData
+        });
+
+        if (response.ok) {
+            statusDiv.textContent = "投稿が完了しました！";
+            e.target.reset(); // フォームをリセット
+        } else {
+            statusDiv.textContent = "投稿に失敗しました。";
+        }
+    } catch (err) {
+        console.error(err);
+        statusDiv.textContent = "通信エラーです。";
+    }
+});
+</script>

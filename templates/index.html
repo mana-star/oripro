@@ -1,0 +1,28 @@
+<head>
+    <meta charset="utf-8">
+    <title>やさしいSNS</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='button.css') }}">
+    <style>
+        
+    </style>
+</head>
+
+<!-- <link rel="stylesheet" href="{{ url_for('static', filename='button.css') }}"> -->
+
+<div style="text-align: center; margin-top: 30px;">
+<img src="{{ url_for('static', filename='images/title.png') }}" 
+    alt="タイトル画像" 
+    style="width: 60%; max-width: 400px; height: auto; border-radius: 10px;">
+</div>
+
+
+
+<div style="text-align: center; margin-top: 30px;">
+<button class="button-10" onclick="location.href='{{ url_for('register') }}'">新規登録</button>
+<button class="button-10" onclick="location.href='{{ url_for('login') }}'">ログイン</button>
+<h4>～嫌な言葉をAIが優しく言い換えます～</h4>
+</div>
+
+<div class="nav-buttons" ></div>
+
+

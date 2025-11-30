@@ -1,0 +1,25 @@
+<h2>投稿編集</h2>
+<!-- <form method="POST"> -->
+  <form id="editForm" method="POST" enctype="multipart/form-data">
+  
+    <!-- 元の文章表示 -->
+  <textarea name="text" rows="5">{{ post.text }}</textarea><br>
+  
+  <!-- 既存画像表示＆削除 -->
+  {% if post.image_filename %}
+    <div>
+      <img src="{{ url_for('static', filename='uploads/' + post.image_filename) }}" width="200"><br>
+      <label>
+        <input type="checkbox" name="delete_image"> この画像を削除
+      </label>
+    </div>
+  {% endif %}
+
+  <!-- 新しい画像アップロード -->
+  <input type="file" name="image" accept="image/*"><br>
+  
+  <button type="submit">更新する</button>
+</form>
+
+<a href="{{ url_for('mypage') }}">マイページへ戻る</a>
+

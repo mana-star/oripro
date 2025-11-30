@@ -1,0 +1,47 @@
+<head>
+    <meta charset="utf-8">
+    <title>設定 - {{ user.username }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='button.css') }}">
+    
+</head>
+<body>
+
+<h2>設定</h2>
+
+<script>
+document.getElementById('colorToggle').addEventListener('click', () => {
+    document.querySelectorAll('.button-1').forEach(btn => {
+        if (btn.classList.contains('black')) {
+            btn.classList.remove('black');
+            btn.classList.add('white');
+        } else {
+            btn.classList.remove('white');
+            btn.classList.add('black');
+        }
+    });
+});
+</script>
+
+<form method="POST" action="{{ url_for('update_account') }}">
+    <label>マイページ・みんなの投稿ページ  背景色：</label>
+    <input type="color" name="background_color" value="{{ user.background_color }}"><br><br>
+
+    <label>マイページ・みんなの投稿ページ  ボタン色：</label>
+    <input type="color" name="button_color" value="{{ user.button_color }}"><br><br>
+
+    
+    <label>ユーザー名</label><br>
+    <input type="text" name="username" value="{{ user.username }}" required><br><br>
+
+    <label>パスワード</label><br>
+    <input type="password" name="password" placeholder="新しいパスワード"><br><br>
+
+    <button type="submit">更新</button>
+</form>
+
+</body>
+
+<!-- <button class="button-1" style="background-color: {{ user.button_color }};"  -->
+        <!-- onclick="location.href='{{ url_for('mypage') }}'">マイページに戻る</button> -->
+
+<button class="button-61" onclick="location.href='{{ url_for('mypage') }}'">マイページ</button>

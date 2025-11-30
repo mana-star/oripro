@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>結果</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <div class="container">
+    <h1>分析結果</h1>
+
+    <p><strong>入力文:</strong> {{ original_text }}</p>
+    <p><strong>感情分類:</strong> {{ label }} (スコア: {{ score }})</p>
+
+    {% if transformed_text != original_text %}
+      <p><strong>変換後の文:</strong> {{ transformed_text }}</p>
+    {% else %}
+      <p><em>この文章は問題ありませんでした 🌸</em></p>
+    {% endif %}
+
+    <a href="/">戻る</a>
+  </div>
+</body>
+</html>

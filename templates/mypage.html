@@ -1,0 +1,123 @@
+<head>
+    <meta charset="utf-8">
+    <title>マイページ - {{ user.username }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='button.css') }}">
+    <style>
+        body {
+            background-color: {{ user.background_color or '#ffffff' }};
+        }
+        /* ボタンの色をユーザー設定に置き換える */
+        .button-1 {
+            background-color: {{ user.button_color or '#2589d0' }};
+    }
+        .box-019 {
+            margin-top: 50px; /* 上に50pxの余白を作る */
+}
+    </style>
+</head>
+
+<!-- 設定・ログアウトボタン -->
+<div class="top-right-buttons">
+    <button class="button-51" onclick="location.href='{{ url_for('account_settings') }}'">設定</button>
+    <button class="button-51" onclick="location.href='/logout'">ログアウト</button>
+</div>
+
+<!-- ページ上部の目印 ChatGPTに聞いた…いやまあこれは前やったことあるからなんとなく覚えてたけど-->
+<a id="top"></a> 
+
+
+<div align="center">
+<div class="box-019 ">
+<div>{{ user.username }}</div>
+<p>マイページ</p>
+</div>
+</div>
+
+<!-- 新規投稿・みんなの投稿ページボタン -->
+<div class="nav-buttons-wrapper">
+<div class="nav-buttons" >
+<button class="button-1" style="background-color: {{ user.button_color }};" 
+        onclick="location.href='{{ url_for('post') }}'">新規投稿</button>
+<button class="button-1" style="background-color: {{ user.button_color }};" 
+        onclick="location.href='{{ url_for('all_posts') }}'">みんなの投稿を見る</button>
+</div>
+</div>
+
+
+<!-- 左上のボタンたち -->
+<div class="nav-buttons-wrapper">
+<!-- 昇順・降順切り替え -->
+<div class="top-left-buttons">
+    <a href="{{ url_for('mypage', order='desc' if order == 'asc' else 'asc') }}" class="button-51">
+    ⇅
+    <span class="order-label">
+        {% if order == 'asc' %}現在：古い順{% else %}現在：新しい順{% endif %}
+    </span>
+    </a>
+    <!-- ボタンの文字色切り替え -->
+    <button class="button-51" id="colorToggle">ボタン文字白黒切替え</button>
+</div>
+</div>
+
+
+<!-- 文字色切り替えのスクリプト(これがないと色変わらない) -->
+<script>
+document.getElementById('colorToggle').addEventListener('click', () => {
+    document.querySelectorAll('.button-1').forEach(btn => {
+        if (btn.classList.contains('black')) {
+            btn.classList.remove('black');
+            btn.classList.add('white');
+        } else {
+            btn.classList.remove('white');
+            btn.classList.add('black');
+        }
+    });
+});
+</script>
+
+
+{% if posts %}
+{% for p in posts %}
+    <div style="border:1px solid #ccc; margin:10px; padding:10px; background-color: white;">
+    <p><strong>元の文:</strong> {{ p.text or ""  }}</p>
+    <p><strong>変換後:</strong> {{ p.transformed or ""  }}</p>
+    {% if p.score is not none %}
+    <p><em>感情: {{ p.label }} / スコア: {{ "%.3f"|format(p.score) }}</em></p>
+    {% elif p.label %}
+    <p><em>感情: {{ p.label }}</em></p>
+    {% endif %}
+    {% if p.image_filename %}
+    <img src="{{ url_for('static', filename='uploads/' + p.image_filename) }}" width="200">
+    {% endif %}
+
+    <p style="color: gray; font-size: 0.9em;">
+        <!-- 投稿日: {{ p.created_at.strftime("%Y-%m-%d %H:%M") }} -->
+        投稿者: {{ p.author.username }}&nbsp;&nbsp;&nbsp;&nbsp;投稿日時: {{ p.jst_created_at.strftime("%Y-%m-%d %H:%M") }}&nbsp;&nbsp;&nbsp;&nbsp;{{ p.created_at.strftime("%H:%M") }}
+    </p>
+    
+    <div style="display: flex; gap: 5px; justify-content: flex-start;">
+    <!-- 編集リンク -->
+    <!-- <a href="{{ url_for('edit_post', post_id=p.id) }}" class="button-5">編集</a> -->
+    <form action="{{ url_for('edit_post', post_id=p.id) }}" method="GET" style="display:inline;">
+        <button type="submit" class="button-5">編集</button>
+    </form>
+    
+    <!-- 削除フォーム -->
+    <form action="{{ url_for('delete_post', post_id=p.id) }}" method="POST" style="display:inline;">
+    <button type="submit" class="button-5" onclick="return confirm('本当に削除しますか？');">削除</button>
+    </form>
+    </div>
+    </div>
+{% endfor %}
+{% else %}
+<p>まだ投稿はありません。</p>
+{% endif %}
+
+<!-- 右下固定トップボタン ChatGPTに聞いた-->
+<a href="#top">
+    <img src="{{ url_for('static', filename='images/top_button.png') }}" 
+        alt="トップへ戻る" 
+        style="width:50px; height:50px; position: fixed; bottom: 20px; right: 20px; cursor: pointer; z-index: 1000;">
+</a>
+
+

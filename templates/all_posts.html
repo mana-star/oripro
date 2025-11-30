@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>みんなの投稿</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='button.css') }}">
+    <style>
+        body {
+            background-color: {{ user.background_color or '#ffffff' }};
+        }
+        /* ボタンの色をユーザー設定に置き換える */
+        .button-1 {
+            background-color: {{ user.button_color or '#2589d0' }};
+    }
+    </style>
+  </head>
+<body>
+
+  <a id="top"></a>  <!-- ページ上部の目印 ChatGPTに聞いた…いやまあこれは前やったことあるからなんとなく覚えてたけど-->
+<h2 class="mypage-title">みんなの投稿</h2>
+<br><br>
+
+<div class="nav-buttons-wrapper">
+<div class="nav-buttons" >
+<button class="button-1" style="background-color: {{ user.button_color }};" 
+        onclick="location.href='{{ url_for('post') }}'">新規投稿</button>
+<button class="button-1" style="background-color: {{ user.button_color }};" 
+        onclick="location.href='{{ url_for('mypage') }}'">マイページ</button>
+<!-- <button class="button-1" onclick="location.href='/logout'">ログアウト</button> -->
+</div>
+</div>
+
+
+<!-- <button class="button-1" onclick="location.href='{{ url_for('post') }}'">新規投稿</button> -->
+<!-- <button class="button-1" onclick="location.href='/mypage'">マイページ</button> -->
+
+
+<div class="nav-buttons-wrapper">
+<div class="top-left-buttons">
+    <a href="{{ url_for('mypage', order='desc' if order == 'asc' else 'asc') }}" class="button-51">
+    ⇅
+    <span class="order-label">
+        {% if order == 'asc' %}現在：古い順{% else %}現在：新しい順{% endif %}
+    </span>
+    </a>
+    <button class="button-51" id="colorToggle">ボタン文字白黒切替え</button>
+
+</div>
+</div>
+
+<!-- 設定・ログアウトボタン -->
+<div class="top-right-buttons">
+    <button class="button-51" onclick="location.href='{{ url_for('account_settings') }}'">設定</button>
+    <button class="button-51" onclick="location.href='/logout'">ログアウト</button>
+</div>
+
+<script>
+document.getElementById('colorToggle').addEventListener('click', () => {
+    document.querySelectorAll('.button-1').forEach(btn => {
+        if (btn.classList.contains('black')) {
+            btn.classList.remove('black');
+            btn.classList.add('white');
+        } else {
+            btn.classList.remove('white');
+            btn.classList.add('black');
+        }
+    });
+});
+</script>
+
+
+
+{% if posts %}
+  {% for p in posts %}
+    <div style="border:1px solid #ccc; margin:10px; padding:10px;">
+    <p>{{ p.transformed or ""  }}</p>
+    {% if p.image_filename %}
+    <img src="{{ url_for('static', filename='uploads/' + p.image_filename) }}" width="200">
+    {% endif %}
+
+    <p style="color: gray; font-size: 0.9em;">
+    投稿者: {{ p.author.username }}&nbsp;&nbsp;&nbsp;&nbsp;投稿日時: {{ p.jst_created_at.strftime("%Y-%m-%d %H:%M") }}
+    </p>
+
+      {% if p.user_id == user.id %}
+        
+    
+      {% endif %}
+      <!-- ✅ チェックボックス -->
+      <input type="checkbox" class="check" >
+      
+    </div>
+  {% endfor %}
+{% else %}
+  <p>まだ投稿はありません。</p>
+{% endif %}
+
+<!-- <a href="{{ url_for('mypage') }}">マイページへ戻る</a> -->
+
+<!-- 右下固定トップボタン ChatGPTに聞いた-->
+<a href="#top">
+    <img src="{{ url_for('static', filename='images/top_button.png') }}" 
+        alt="トップへ戻る" 
+        style="width:50px; height:50px; position: fixed; bottom: 20px; right: 20px; cursor: pointer; z-index: 1000;">
+</a>

@@ -1,0 +1,417 @@
+.nav-buttons-wrapper {
+    display: flex;
+    justify-content: center;      /* 横方向中央寄せ */
+}
+
+.nav-buttons {
+    display: flex;              /* 横並びにする */
+    justify-content: center;    /* 親コンテナ中央揃え */
+    gap: 15px;                  /* ボタン間のスペース */
+    margin-top: 20px;           /* 上に余白を付けたい場合 */
+}
+
+/* 基本の色付きボタン */
+.button-1 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 190px;
+    margin:5px auto;
+    padding: .9em 2em;
+    border: none;
+    border-radius: 5px;
+    background-color: #2589d0;
+    /* color: #000000; */
+    font-weight: 600;
+    font-size: 1em;
+    white-space: nowrap;/* ← ボタンサイズそのまま改行無し */
+    position: relative; /* ホバーアニメーション用に追加 */
+    text-decoration: none;
+    color: #ffffff; /* デフォルトを白にする */
+    
+}
+
+/* 文字色変更用クラス*/
+.button-1.black { color: #000000; }
+.button-1.white { color: #ffffff; }
+
+.button-1:hover {
+    animation: anima-button-1 1s;
+}
+
+@keyframes anima-button-1 {
+    0% {
+        box-shadow: 0 0 0 0 rgb(37 137 208 / 50%);
+    }
+    100% {
+        box-shadow: 0 0 0 0.5em rgb(0 0 0 / 0%);
+    }
+}
+
+/* 選択されてないときの古い→新しいボタンor新しい→古いボタンのデザイン */
+.button-2 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 99px;
+    margin:5px auto;
+    padding: .9em 2em;
+    border: none;
+    border-radius: 5px;
+    background-color: #2589d0;
+    color: #fff;
+    font-weight: 600;
+    font-size: 0.8em;
+    white-space: nowrap;/* ← ボタンサイズそのまま改行無し */
+    position: relative; /* ホバーアニメーション用に追加 */
+    text-decoration: none;
+    
+}
+
+
+/* 選択されてないときの古い→新しいボタンor新しい→古いボタンの波紋*/
+.button-2:hover {
+    animation: anima-button-1 1s;
+}
+
+@keyframes anima-button-1 {
+    0% {
+        box-shadow: 0 0 0 0 rgb(37 137 208 / 50%);
+    }
+    100% {
+        box-shadow: 0 0 0 0.5em rgb(0 0 0 / 0%);
+    }
+}
+
+/* ○○さんの投稿履歴をセンターに持ってくる奴 ChatGPTに聞いた */
+.mypage-title {
+  text-align: center;
+  margin-top: 20px;
+}
+
+/* 選択中のボタン自体のサイズ */
+.button-50 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    width: 85px;
+    margin: 0 auto;
+    padding: .9em 2em .8em 40px;
+    border: none;
+    border-radius: 5px;
+    box-shadow: 0 2px 3px rgb(0 0 0 / 30%), 0 2px 3px -2px rgb(0 0 0 / 20%);
+    background-color: #2589d0;
+    color: #fff;
+    font-weight: 600;
+    font-size: 0.8em;
+    transition: transform .3s ease-in-out, box-shadow .3s ease-in-out;
+}
+
+/* ★有りが85、★無しが99の幅のとき、一致する */
+
+/* Σの白いラベル部分 */
+.button-50::before {
+    position: absolute;
+    top: 0;
+    left: 10px;
+    width: 25px;
+    height: 75%;
+    background-color: #fff;
+    clip-path: polygon(0 0, 0 100%, 50% 75%, 100% 100%, 100% 0);
+    content: '';
+    
+}
+
+/* ★マークの位置やサイズ*/
+.button-50::after {
+    position: absolute;
+    top: 30%;/* ★マークの上下移動*/
+    left: 22px;
+    transform: translate(-50%, -50%);
+    color: #2589d0;
+    font-size: 1.2em;
+    content: '★';
+}
+
+
+
+.title-image-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
+}
+
+.title-image {
+  width: 40%;
+  max-width: 400px;
+  height: auto;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+
+.post-card {
+  position: relative;          /* チェックボックスを右下に配置するために必要 */
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  padding: 15px;
+  margin: 15px auto;
+  width: 80%;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  background-color: #fff;
+}
+
+/* チェックボックス本体配置指定 */
+.post-card .check {
+  position: absolute;
+  bottom: 10px;     /* 下からの距離 */
+  right: 10px;      /* 右からの距離 */
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  accent-color: #3b82f6;  /* チェックマークの色（青） */
+}
+
+/* 右上のログアウト・設定ボタン配置指定 */
+.top-right-buttons {
+    position: absolute;
+    top: 20px;         /* 上からの距離 */
+    right: 10px;       /* 右端からの距離 */
+    display: flex;
+    gap: -50px;         /* ボタン間の余白 */
+    z-index: 1000;     /* 一番前面に出す */
+}
+
+/* 旧マイページ右上のログアウト・設定ボタンデザイン */
+.button-13 {
+    width: 60px;
+    height: 60px;
+    border: none;
+    /* border-bottom: solid 2px #c0c0c0; */
+    border-radius: 50%;
+    /* box-shadow: inset 15px 30px 40px rgba(255, 255, 255, 0.5), */
+                /* 0 3px 7px rgba(0, 0, 0, .2); */
+    background-image: linear-gradient(#000000 0%, #000000 100%);
+    color: #ffffff;
+    font-weight: 600;
+    font-size: 0.8em;
+    /* ↓カーソルを👆にする奴 */
+    /* cursor: pointer; */
+}
+
+/* 旧マイページ右上のログアウト・設定ボタン波紋 */
+.button-13:hover {
+    animation: anima-button-1 1s;
+}
+
+@keyframes anima-button-1 {
+    0% {
+        box-shadow: 0 0 0 0 rgba(17, 17, 17, 0.5);
+    }
+    100% {
+        box-shadow: 0 0 0 0.5em rgb(0 0 0 / 0%);
+    }
+}
+
+/* 左上の降順・昇順ボタン配置指定*/
+.top-left-buttons {
+    position: absolute;
+    top: 23px;         /* 上からの距離 */
+    left: 10px;       /* 右端からの距離 ⇅だけなら-30 改行あると0*/
+    display: flex;
+    flex-direction: column;  /* ← 縦並びにする */
+    gap: 5px;         /* ボタン間の余白 */
+    z-index: 900;     
+}
+
+.order-label {
+    display: inline;       /* インラインにして改行しない */
+    margin-left: 5px;      /* ⇅ と文字の間隔 */
+    white-space: nowrap;   /* 改行されないようにする */
+}
+
+
+
+/* マイページ右上の設定・ログアウトボタン */
+.button-51 {
+    display: flex;
+    justify-content: center;
+    position: relative;
+    width: 80px;
+    margin: 0 auto;
+    padding: .4em 0.8em;
+    border: none;
+    /* border-bottom: 2px solid #e6edf3; */
+    background-color: transparent;
+    color: #333;
+    font-weight: 600;
+    font-size: 0.7em;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.button-51::after {
+    position: absolute;
+    bottom: 0px;
+    left: 0;
+    transform: scaleX(0);
+    transform-origin: center left;
+    width: 100%;
+    height: 2px;
+    /* background-color: #2589d0; */
+    content: '';
+    transition: transform .3s ease;
+}
+
+.button-51:hover::after {
+    transform: scaleX(1);
+}
+
+
+/* 編集・削除 */
+.button-5 {
+    display: flex;
+    justify-content: center;
+    position: relative;
+    width: 45px;
+    margin: 0;
+    padding: .1em 0.8em;
+    border: none;
+    /* border-bottom: 2px solid #e6edf3; */
+    background-color: transparent;
+    color: #333;
+    font-weight: 600;
+    font-size: 0.7em;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.button-5::after {
+    position: absolute;
+    bottom: 0px;
+    left: 0;
+    transform: scaleX(0);
+    transform-origin: center left;
+    width: 100%;
+    height: 2px;
+    /* background-color: #2589d0; */
+    content: '';
+    transition: transform .3s ease;
+}
+
+.button-5:hover::after {
+    transform: scaleX(1);
+}
+
+
+.box-019 {
+  position: relative;
+  display: inline-block; /* ← 中央に寄せるときに必要 */
+  margin: 2em auto;
+  padding: 0.5em 1.5em 1em 1.5em;/* 上・右・下・左 */
+  /* border: 2px solid #2589d0; */
+  text-align: center;
+  background-color: #ffffff;
+}
+
+/* 吹き出しタイトル部分（ユーザー名） */
+.box-019 > div {
+  position: absolute;
+  top: -2.5em;
+  left: 50%;
+  transform: translateX(-50%); /* ← 中央寄せ調整 */
+  padding: .4em 1.4em;
+  
+  background-color: #ffffff;
+  /* border: 2px solid #2589d0; */
+  color: #000000;
+  font-size: 0.9em;
+  white-space: nowrap; /* ← 名前が長くても1行で表示 */
+  font-weight: bold;
+}
+
+
+/* ｢マイページ｣という文章のフォントサイズなど */
+.box-019 p {
+  margin: 6px 0 0 0; /* 上・右・下・左 */
+  font-weight: bold;
+  font-size: 1.2em;
+}
+
+/* 既存の .mypage-title にあった中央寄せ機能を統合 */
+.mypage-title {
+  text-align: center;
+}
+
+
+/* 基本の色付きボタン */
+.button-10 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 190px;
+    margin:5px auto;
+    padding: .9em 2em;
+    border: none;
+    border-radius: 5px;
+    background-color: #2589d0;
+    color: #ffffff;
+    font-weight: 600;
+    font-size: 1em;
+    white-space: nowrap;/* ← ボタンサイズそのまま改行無し */
+    position: relative; /* ホバーアニメーション用に追加 */
+    text-decoration: none;
+    
+}
+
+
+.button-10:hover {
+    animation: anima-button-10 1s;
+}
+
+@keyframes anima-button-10 {
+    0% {
+        box-shadow: 0 0 0 0 rgb(37 137 208 / 50%);
+    }
+    100% {
+        box-shadow: 0 0 0 0.5em rgb(0 0 0 / 0%);
+    }
+}
+
+.button-61 {
+    /* display: flex; */
+    /* justify-content: center; */
+    position: relative;
+    width: 80px;
+    margin: 0 auto;
+    padding: .4em 0.8em;
+    border: none;
+    /* border-bottom: 2px solid #e6edf3; */
+    background-color: transparent;
+    color: #333;
+    font-weight: 600;
+    font-size: 0.7em;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.button-61::after {
+    /* position: absolute; */
+    bottom: 0px;
+    left: 0;
+    transform: scaleX(0);
+    transform-origin: center left;
+    width: 100%;
+    height: 2px;
+    /* background-color: #2589d0; */
+    content: '';
+    transition: transform .3s ease;
+}
+
+.button-61:hover::after {
+    transform: scaleX(1);
+}
+
+
+
