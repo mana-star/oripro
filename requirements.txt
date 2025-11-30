@@ -65,6 +65,7 @@ safetensors==0.6.2
 six==1.17.0
 SQLAlchemy==2.0.44
 sympy==1.13.3
+torch==2.1.2
 termcolor==3.1.0
 transformers==4.30.2
 tokenizers==0.13.3 --prefer-binary
